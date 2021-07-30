@@ -13,6 +13,11 @@ app.engine('hbs', exphbs({
     extname: '.hbs'
 }))
 
+// Use 'users' and 'schedules' routes w/ Express Router
+app.use("/users", users)
+app.use("/schedules", schedules)
+
+// Home route
 app.get('/', (req, res) => {
     res.render('index')
 })

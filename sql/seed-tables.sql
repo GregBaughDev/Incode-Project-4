@@ -1,0 +1,13 @@
+INSERT INTO users VALUES 
+    ('27d6e73f-421f-43c2-9dc9-b13065c127a4', 'Darren', 'Brown', 'dkb1@gmail.com', 'testpass1'),
+    ('aec5379b-e4f3-4e5f-ac9b-bac3e3dc2e16', 'Donna', 'Karren', 'karen1010@gmail.com', 'KazDj1'),
+    ('b4e15a1c-63e8-4f3d-880e-07771cc21d4a', 'Adam', 'Driver', 'drivera2020@hotmail.com', 'Driverpass23'),
+    ('6b7410b3-75a3-4181-b841-ad60856561e4', 'Alicia', 'Test', 'test123@gmail.com', 'testpass1223'),
+    ('deb88fef-4757-4acc-84bc-38548cee7000', 'Ian', 'Carrol', 'melbian@gmail.com', 'eomelb123');
+
+INSERT INTO schedules VALUES
+    ('317bda15-e440-4b9f-8521-926cb9cbb6b7', '27d6e73f-421f-43c2-9dc9-b13065c127a4', 5, '2021-08-04 10:00:00', '2021-08-04 14:00:00'),
+    ('362d7245-5c55-45e5-aa7e-8747fdcef010', 'aec5379b-e4f3-4e5f-ac9b-bac3e3dc2e16', 1, '2021-08-06 10:30:00', '2021-08-06 14:30:00'),
+    ('b9f7e69d-8ad4-4171-acaf-c9e899adfb83', 'b4e15a1c-63e8-4f3d-880e-07771cc21d4a', 3, '2021-08-09 08:30:00', '2021-08-09 12:00:00'),
+    ('177e1eb2-22fc-425a-a507-abf9fe2eed4f', '6b7410b3-75a3-4181-b841-ad60856561e4', 2, '2021-08-11 14:30:00', '2021-08-11 20:30:00'),
+    ('b3cd8f10-2fef-46f9-b79e-a9f21fe0ec9e', 'deb88fef-4757-4acc-84bc-38548cee7000', 4, '2021-08-20 09:00:00', '2021-08-20 17:00:00');
