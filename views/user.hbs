@@ -1,0 +1,29 @@
+<div>
+    <section>
+        <h2>Information for {{userSearch.first_name}} {{userSearch.last_name}}</h2>
+        <h3>User: {{userSearch.first_name}} {{userSearch.last_name}}</h3>
+        <h4>Email: {{userSearch.email}}</h4>
+    </section>
+    <section>
+        <h2>Schedules:</h2>
+        {{!-- // TODO[GB]: Update way day and time are displayed --}}
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each schedSearch}}
+                    <tr>
+                        <td>{{this.day}}</td>
+                        <td>{{this.start_time}}</td>
+                        <td>{{this.end_time}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </section>
+</div>
