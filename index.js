@@ -3,8 +3,10 @@ const app = express()
 const db = require('./conn/conn')
 const exphbs = require('express-handlebars')
 
+
 const users = require('./routes/users')
 const schedules = require('./routes/schedules')
+const login = require('./routes/login')
 
 const port = process.env.PORT || 3000
 
@@ -20,6 +22,7 @@ app.engine('hbs', exphbs({
 // Use 'users' and 'schedules' routes w/ Express Router
 app.use("/users", users)
 app.use("/schedules", schedules)
+app.use("/login", login)
 
 // Home route
 app.get('/', async (req, res) => {
@@ -28,5 +31,5 @@ app.get('/', async (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
+    console.log(`Listening on port http://localhost:${port}`)
 })

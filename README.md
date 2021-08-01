@@ -1,28 +1,36 @@
 # Incode-Project 4: Create a client-server web app with authentication 
+### Authors: Greg Baugh, Rhys Dawson
 
-Web app that displays staff timetable with login and authentication
+Web app that displays staff timetable with login and authentication.
 
-Task is split into branches for each part.
-
-## Authors
-
-#TODO
+Project is split into branches for each part.
 
 ## Installation
 
 Clone repo.
 
-Use the package manager [npm](https://www.npmjs.com/) to install dependencies.
-
-#TODO
+Use the package manager [npm](https://www.npmjs.com/) to install following dependencies.
+```bash
+`npm install dotenv`
 ```
+```
+`npm install express`
+```
+```
+`npm install express-handlebars`
+```
+I recommend to host locally using [nodemon](https://www.npmjs.com/package/nodemon).
+```
+`npm install nodemon`
+```
+
 
 Create SQL database 
 
 #TODO
 ## Usage
 
-I recommend to host locally using [nodemon](https://www.npmjs.com/package/nodemon).
+
 
 Change database.js values to suit your needs.
 
@@ -36,7 +44,7 @@ nodemon index.js
 ## Technologies used
 - NodeJS
 - Express
-- [Handlebars] (https://handlebarsjs.com/)
+- [Handlebars](https://handlebarsjs.com/)
 - Postgres
 - [Tailwind](https://tailwindcss.com/)
 
