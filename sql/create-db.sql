@@ -1,0 +1,1 @@
+CREATE DATABASE mr_coffee;
