@@ -1,6 +1,7 @@
 <div class='center-div'>
   <div class='container w-25 border py-5'>
-    <h2>Log in</h2>
+    <h2>{{title}}</h2>
+    {{#if showForm}}
     <form action="/login" method="POST">
       <div class="form-group">
         <label for="email">E-Mail:</label>
@@ -19,5 +20,10 @@
         <input type="submit" value="Submit" class="btn btn-primary">
       </div>
     </form>
+  {{else}}
+  <a href="/">Go Back</a>
+  <button onclick="session.destroy()">Log Out</button>
+  
+  {{/if}}
   </div>
 </div>
