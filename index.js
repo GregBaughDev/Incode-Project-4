@@ -5,10 +5,10 @@ const exphbs = require('express-handlebars')
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
 
-
 const users = require('./routes/users')
 const schedules = require('./routes/schedules')
 const login = require('./routes/login')
+const signup = require('./routes/signup')
 
 const port = process.env.PORT || 3000
 
@@ -22,24 +22,21 @@ app.engine('hbs', exphbs({
 }))
 
 /// Session Middleware
-app.use(
-  session({
+app.use(session ({
     secret: uuidv4(),
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 3600000 // 1 hour
       // secure: false, // must be true if served via HTTPS
-    },
-  }));
+    }
+}))
 
 // Use 'users' and 'schedules' routes w/ Express Router
 app.use("/users", users)
 app.use("/schedules", schedules)
 app.use("/login", login)
-
-
-  
+app.use("/signup", signup)
 
 // Home route
 app.get('/', async (req, res) => {
