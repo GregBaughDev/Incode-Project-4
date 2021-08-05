@@ -18,13 +18,13 @@ body {
     font-family: var(--font-family);
 }
 
-.btn-warning {
+.btn-style {
     background-color: var(--secondary-bg-2-color);
     border: solid 2px var(--secondary-bg-2-color);
     color: var(--secondary-text-color);
 }
 
-.btn-warning:hover {
+.btn-style:hover {
     background-color: var(--secondary-bg-color);
     border: solid 2px var(--secondary-bg-color);
     color: var(--secondary-text-color);

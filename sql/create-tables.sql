@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS schedules (
     schedule_id VARCHAR(100) UNIQUE NOT NULL,
     user_id VARCHAR(100) NOT NULL,
     day INT NOT NULL CHECK(day >= 1 AND day <= 7 ),
-    start_time TIMESTAMP NOT NULL,
-    end_time TIMESTAMP NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
     CONSTRAINT schedules_pkey PRIMARY KEY (schedule_id),
     CONSTRAINT schedules_fkey FOREIGN KEY (user_id) REFERENCES users(user_id)
         ON DELETE CASCADE

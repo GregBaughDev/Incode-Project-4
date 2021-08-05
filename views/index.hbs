@@ -1,24 +1,28 @@
-<h2>Home</h2>
-<h3>All Schedules</h3>
-    {{!-- TODO[GB] - Insert all schedules, each schedule will have link to user page showing user details and schedules --}}
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Day</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each allScheds}}
+<div class="container center-div">
+    <div class="container border p-5">
+        <h2 class="text-center my-2">Home</h2>
+        <h3 class="text-center my-4">All Schedules</h3>
+        <table>
+            <thead>
                 <tr>
-                    <td><a href="/users/{{this.user_id}}">{{this.first_name}}</td></a>
-                    <td>{{this.day}}</td>
-                    <td>{{this.start_time}}</td>
-                    <td>{{this.end_time}}</td>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Day</th>
+                    <th class="text-center">Start Time</th>
+                    <th class="text-center">End Time</th>
                 </tr>
-            {{/each}}
-        </tbody>
-        
-    </table>
+            </thead>
+            <tbody>
+                {{#each allScheds}}
+                    <tr>
+                        <td><a href="/users/{{this.user_id}}">{{this.first_name}}</td></a>
+                        <td>{{this.day}}</td>
+                        <td>{{this.start_time}}</td>
+                        <td>{{this.end_time}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+    
+
