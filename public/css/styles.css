@@ -1,0 +1,29 @@
+/* Global styles */
+:root {
+    --font-family: 'Rubik', 'Helvetica', 'Arial', sans-serif;
+    --primary-bg-color: #F5F5F5;
+    --secondary-bg-color: #6A7B8B;
+    --secondary-bg-2-color: #5C5B5B; 
+    --secondary-text-color: #F1F3F5;
+}
+
+*, *:after, *:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--primary-bg-color);
+    font-family: var(--font-family);
+}
+
+/* Nav styles */
+nav {
+    padding: 0 2%;
+    background-color: var(--secondary-bg-color);
+}
+
+nav a, .nav-link{
+    color: var(--primary-bg-color);
+}

@@ -1,25 +1,29 @@
-<div class='center-div'>
-  <div class='container w-25 border py-5'>
-    <h2>{{title}}</h2>
+<div class='container w-75 center-div'>
+  <div class='container w-20 border p-5'>
+    <h2 class='text-center'>{{title}}</h2>
     {{#if showForm}}
     <form action="/login" method="POST">
-      <div class="form-group">
+      <div class="form-group my-2">
         <label for="email">E-Mail:</label>
         <input type="email" name="email" id="email" required class='form-control' placeholder="Enter E-mail" value="dkb1@gmail.com">
         <small id='emailHelp' class='form-text text-muted'>We'll never share your email with anyone else.</small>
       </div>
-      <div class="form-group">
+      <div class="form-group my-2">
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required class='form-control' placeholder="Password" value="testpass1">
       </div>
-      <div class='form-check'>
+      {{!-- TO: RHYS - Do you want to implement the logic for the below or should we remove it? --}}
+      {{!-- <div class="form-check my-2">
         <input type='checkbox' class='form-check-input' id='Check' />
         <label class='form-check-label' for='Check'>Stay Logged in</label>
-      </div>
-      <div class="form-group">
+      </div> --}}
+      <div class="form-group my-2">
         <input type="submit" value="Submit" class="btn btn-primary">
       </div>
     </form>
+    <div>
+      <p class="mt-2">Not a user yet? Sign up <a href="/signup">here</a></p>
+    </div>
   {{else}}
   <a href="/">Go Back</a>
   <button onclick="session.destroy()">Log Out</button>
