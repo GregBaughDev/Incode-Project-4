@@ -4,6 +4,7 @@ const db = require('./conn/conn')
 const exphbs = require('express-handlebars')
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
+const path = require('path')
 
 const users = require('./routes/users')
 const schedules = require('./routes/schedules')
@@ -14,6 +15,8 @@ const port = process.env.PORT || 3000
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(express.static('public'))
+app.set('public', path.join(__dirname, 'public'))
 
 app.set('view engine', 'hbs')
 app.engine('hbs', exphbs({
@@ -42,7 +45,6 @@ app.use("/signup", signup)
 app.get('/', async (req, res) => {
     if (!req.session.loggedIn) return res.redirect('/login')
     const allScheds = await db.any("SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id")
-    console.log(req.session)
     res.render('index', {allScheds})
 })
 
