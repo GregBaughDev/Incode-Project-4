@@ -1,0 +1,52 @@
+<div class="center-div">
+    <div class="container">
+        <h2>Sign Up</h2>
+        {{#if errors}}
+            <h3>{{errors.userExists}}</h3>
+        {{/if}}
+        <form action="/signup" method="POST">
+            <div class="form-group">
+                <label for="first">First Name</label>
+                <input type="text" name="first" id="first" {{#if currData}} value="{{currData.first}}" {{/if}} required>
+                {{#if errors}}
+                    <span class="text-danger">{{errors.first}}</span>
+                {{/if}}
+            </div>
+            <div class="form-group">
+                <label for="last">Last Name</label>
+                <input type="text" name="last" id="last" {{#if currData}} value="{{currData.last}}" {{/if}} required>
+                {{#if errors}}
+                    <span class="text-danger">{{errors.last}}</span>
+                {{/if}}
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" {{#if currData}} value="{{currData.email}}" {{/if}} required>
+                {{#if errors}}
+                    <span class="text-danger">{{errors.email}}</span>
+                {{/if}}
+            </div>
+            <div class="form-group">
+                <label for="pword">Enter Password</label>
+                <input type="password" name="pword" id="pword" required>
+                {{#if errors}}
+                    <span class="text-danger">{{errors.password}}</span>
+                {{/if}}
+                <aside>
+                    Password must be at least 8 characters, must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
+                    and it can contain special characters
+                </aside>
+            </div>
+            <div class="form-group">
+                <label for="pwordcheck">Re-enter Password</label>
+                <input type="password" name="pwordcheck" id="pwordcheck" required>
+                {{#if errors}}
+                    <span class="text-danger">{{errors.passwordMatch}}</span>
+                {{/if}}
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
