@@ -18,6 +18,18 @@ body {
     font-family: var(--font-family);
 }
 
+.btn-warning {
+    background-color: var(--secondary-bg-2-color);
+    border: solid 2px var(--secondary-bg-2-color);
+    color: var(--secondary-text-color);
+}
+
+.btn-warning:hover {
+    background-color: var(--secondary-bg-color);
+    border: solid 2px var(--secondary-bg-color);
+    color: var(--secondary-text-color);
+}
+
 /* Nav styles */
 nav {
     padding: 0 2%;
