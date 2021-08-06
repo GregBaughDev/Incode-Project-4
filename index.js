@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express')
 const app = express()
 const db = require('./conn/conn')
@@ -12,6 +13,7 @@ const schedules = require('./routes/schedules')
 const login = require('./routes/login')
 const logout = require('./routes/logout')
 const signup = require('./routes/signup')
+const reset = require('./routes/reset')
 
 const port = process.env.PORT || 3000
 
@@ -40,6 +42,7 @@ app.use("/schedules", schedules)
 app.use("/login", login)
 app.use("/logout", logout)
 app.use("/signup", signup)
+app.use("/reset", reset)
 
 // Home route
 app.get('/', redirectToLogin, async  (req, res) => {

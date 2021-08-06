@@ -1,13 +1,68 @@
-const express = require('express')
-const router = express.Router()
-const db = require('../conn/conn')
-const {v4: uuidv4} = require('uuid')
+const express = require('express');
+const router = express.Router();
+const db = require('../conn/conn');
+const { v4: uuidv4 } = require('uuid');
+const { redirectToLogin } = require('../middleware');
 
-// TODO[GB]: Add UUID as PK when inserting info (uuidv4())
+
+// TODO: [RD] Add schedule validation to avoid time clashes
+// TODO: [RD] Add user confirmation before deletion
+// TODO: [RD] Tune Sort functionality
+
+
 router
-    .route('/') 
-    .get((req, res) => {
-        res.send("Placeholder for schedules")
+  .route('/')
+  .get(redirectToLogin, (req, res) => {
+    db.any(`SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id WHERE schedules.user_id = $1;`, [req.session.userID])
+      .then((schedule) => {
+        res.render('schedules', { schedule });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  })
+
+  .post((req, res) => {
+    db.none('INSERT INTO schedules(schedule_id, user_id, day, start_time, end_time) VALUES($1, $2, $3, $4, $5);',[uuidv4(), req.session.userID, req.body.day, req.body.start_time, req.body.end_time,])
+      .then(() => {
+        res.redirect('/schedules');
+      })
+
+      .catch((e) => {
+        console.log(e);
+      });
+  });
+
+// Sort Schedule  
+router
+  .get('/day', redirectToLogin, (req, res) => {
+    db.any(`SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id WHERE schedules.user_id = $1;`, [req.session.userID])
+      .then((schedule) => {
+        let sortedSched = schedule.sort((a, b) => Number(a.day) - Number(b.day));
+        res.render('schedules', { schedule: sortedSched });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  })
+
+// Delete Specific Schedule Route
+router
+  .route('/:id/delete')
+    .get(async (req, res) => {
+        const {id} = req.params
+        try {
+            const deletedSched = await db.any("SELECT * FROM schedules WHERE schedule_id = $1", [id])
+            if (req.session.userID == deletedSched[0].user_id) { 
+              db.none('DELETE FROM schedules WHERE schedule_id=$1', [id]);
+              res.redirect('/schedules');
+            }
+            else {
+              console.log("You cannot delete someone else's schedule!")
+            }
+        } catch (e) {
+            console.log(e)
+        }
     })
 
-module.exports = router
+module.exports = router;
