@@ -21,22 +21,36 @@ router
         console.log(e);
       });
   })
-
+// Add Schedule
   .post((req, res) => {
-    db.none('INSERT INTO schedules(schedule_id, user_id, day, start_time, end_time) VALUES($1, $2, $3, $4, $5);',[uuidv4(), req.session.userID, req.body.day, req.body.start_time, req.body.end_time,])
-      .then(() => {
-        res.redirect('/schedules');
-      })
-
-      .catch((e) => {
-        console.log(e);
-      });
-  });
+    db.any(`SELECT * FROM schedules WHERE schedules.user_id = $1 and schedules.day = $2 and schedules.start_time < $4
+    AND (schedules.end_time IS NULL OR schedules.end_time > $3);`, [req.session.userID, req.body.day, req.body.start_time, req.body.end_time ])
+    .then((dayExists) => {
+      let validShift = null
+      !dayExists[0] ? validShift = true : validShift = false
+      if (validShift){
+        db.none('INSERT INTO schedules(schedule_id, user_id, day, start_time, end_time) VALUES($1, $2, $3, $4, $5);',[uuidv4(), req.session.userID, req.body.day, req.body.start_time, req.body.end_time,])
+        .then(() => {
+          res.redirect('/schedules');
+        })
+  
+        .catch((e) => {
+          console.log(e);
+        });
+      }
+      else{
+        console.log("Invalid new shift")
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+})
 
 // Sort Schedule  
 router
   .get('/day', redirectToLogin, (req, res) => {
-    db.any(`SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id WHERE schedules.user_id = $1;`, [req.session.userID])
+    db.any(`SELECT * FROM schedules WHERE schedules.user_id = $1;`, [req.session.userID])
       .then((schedule) => {
         let sortedSched = schedule.sort((a, b) => Number(a.day) - Number(b.day));
         res.render('schedules', { schedule: sortedSched });
