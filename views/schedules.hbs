@@ -1,10 +1,10 @@
 <div class="container w-75 center-div">
     <div class="container w-20 border p-5">
         <h2 class="text-center my-2">Schedules</h2>
-        <h3 class="text-center my-4">New Schedule</h3>
+        <h3 class="text-center my-4">Add New Schedule</h3>
         <form action="/schedules" method="POST">
             <div class="form-group my-3">
-                <label for="day">Choose a day (Week starts on Monday!):</label>
+                <label for="day">Choose a day:</label>
                 <select class="form-control" name="day" id="day" required> 
                   <option value=1>Monday</option>
                   <option value=2>Tuesday</option>
@@ -17,14 +17,15 @@
             </div>
 
             <div class="form-group my-3">
-              <label for="start_time">Start at:</label>
-              <input class="form-control" type="time" name="start_time" id="start_time" required>
-              <label for="end_time">End at:</label>
-              <input class="form-control" type="time" name="end_time" id="end_time" required>
+              <label for="start_time">Shift starts at:</label>
+              <input class="form-control" type="time" name="start_time" id="start_time" min="06:00" max="19:00" required>
+              <label for="end_time">Shift ends at:</label>
+              <input class="form-control" type="time" name="end_time" id="end_time"  min="06:00" max="19:00"  required>
+              <small>Working hours are 6am to 7pm</small>
             </div>
 
             <div class="form-group my-3 d-flex justify-content-center">
-                <button class="btn btn-style" type="submit">Submit</button>
+                <button class="btn btn-style" type="submit">Add Schedule</button>
             </div>
         </form>
     </div>
@@ -36,25 +37,34 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col" class="center"><a href="/schedules/day">Day</a></th>
-                    <th scope="col" class="center">Start Time</th>
-                    <th scope="col" class="center">End Time</th>
-                    <th scope="col" class="center">Delete</th>
+                    <th scope="col" class="text-center">
+                        Day
+                    <a href="/schedules/day">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                        </svg>
+                    </a>
+                    </th>
+                    <th scope="col" class="text-center">Start Time</th>
+                    <th scope="col" class="text-center">End Time</th>
+                    <th scope="col" class="text-center">Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each schedule}}
                     <tr>
-                        <td scope="col" class="center">{{this.day}}</td>
-                        <td scope="col" class="center">{{this.start_time}}</td>
-                        <td scope="col" class="center">{{this.end_time}}</td>
-                        <td scope="col" class="center">
+                        <td scope="col" class="text-center align-middle">{{this.day}}</td>
+                        <td scope="col" class="text-center align-middle">{{this.start_time}}</td>
+                        <td scope="col" class="text-center align-middle">{{this.end_time}}</td>
+                        <td scope="col" class="text-center align-middle">
                             <form method="POST" action="/schedules/{{this.schedule_id}}/delete?_method=DELETE">
-                                <button type="submit" name="_method" class="btn btn-style">Delete</button>
+                                <button type="submit" name="_method" class="btn btn-style">
+                                DELETE     
+                                <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg>   
+                                </button>
                             </form>
                         </td>
                     </tr>
-
                 {{/each}}
             </tbody>
         </table>

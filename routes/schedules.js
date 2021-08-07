@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../conn/conn');
 const { v4: uuidv4 } = require('uuid');
-const { redirectToLogin } = require('../middleware');
+const { redirectToLogin } = require('../helpers/middleware');
 
 
 
@@ -24,8 +24,8 @@ router
   })
 // Add Schedule
   .post((req, res) => {
-    db.any(`SELECT * FROM schedules WHERE schedules.user_id = $1 and schedules.day = $2 and schedules.start_time < $4
-    AND (schedules.end_time IS NULL OR schedules.end_time > $3);`, [req.session.userID, req.body.day, req.body.start_time, req.body.end_time ])
+    db.any(`SELECT * FROM schedules WHERE schedules.user_id = $1 and schedules.day = $2 and schedules.start_time <= $4
+    AND (schedules.end_time IS NULL OR schedules.end_time >= $3);`, [req.session.userID, req.body.day, req.body.start_time, req.body.end_time ])
     .then((dayExists) => {
       let validShift = null
       !dayExists[0] ? validShift = true : validShift = false
