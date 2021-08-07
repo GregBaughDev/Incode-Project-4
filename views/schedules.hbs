@@ -1,7 +1,7 @@
 <div class="container w-75 center-div">
     <div class="container w-20 border p-5">
-        <h2 class="text-center">Schedules</h2>
-        <h3 class="text-center">New Schedule</h3>
+        <h2 class="text-center my-2">Schedules</h2>
+        <h3 class="text-center my-4">New Schedule</h3>
         <form action="/schedules" method="POST">
             <div class="form-group my-3">
                 <label for="day">Choose a day (Week starts on Monday!):</label>
@@ -32,29 +32,32 @@
 
 <div class="container w-75 center-div">
     <div class="container w-20 border p-5">
-    <h2 class="text-center">Current Schedules</h2>
-    <section>
-        <table>
+    <h2 class="text-center my-2">Current Schedules</h2>
+        <table class="table">
             <thead>
                 <tr>
-                    <th class="text-center"><a href="/schedules/day">Day</a></th>
-                    <th class="text-center">Start Time</th>
-                    <th class="text-center">End Time</th>
-                    <th class="text-center">Delete</th>
+                    <th scope="col" class="center"><a href="/schedules/day">Day</a></th>
+                    <th scope="col" class="center">Start Time</th>
+                    <th scope="col" class="center">End Time</th>
+                    <th scope="col" class="center">Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each schedule}}
                     <tr>
-                        <td>{{this.day}}</td>
-                        <td>{{this.start_time}}</td>
-                        <td>{{this.end_time}}</td>
-                        <td><a href="/schedules/{{this.schedule_id}}/delete">DELETE</a></td>
+                        <td scope="col" class="center">{{this.day}}</td>
+                        <td scope="col" class="center">{{this.start_time}}</td>
+                        <td scope="col" class="center">{{this.end_time}}</td>
+                        <td scope="col" class="center">
+                            <form method="POST" action="/schedules/{{this.schedule_id}}/delete?_method=DELETE">
+                                <button type="submit" name="_method" class="btn btn-style">Delete</button>
+                            </form>
+                        </td>
                     </tr>
+
                 {{/each}}
             </tbody>
         </table>
-    </section>
     </div>
 </div>
 

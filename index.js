@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require('express')
 const app = express()
 const db = require('./conn/conn')
+const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
@@ -21,6 +22,8 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(express.static('public'))
 app.set('public', path.join(__dirname, 'public'))
+
+app.use(methodOverride('_method'))
 
 app.set('view engine', 'hbs')
 app.engine('hbs', exphbs({

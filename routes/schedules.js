@@ -5,9 +5,10 @@ const { v4: uuidv4 } = require('uuid');
 const { redirectToLogin } = require('../middleware');
 
 
+
 // TODO: [RD] Add schedule validation to avoid time clashes
 // TODO: [RD] Add user confirmation before deletion
-// TODO: [RD] Tune Sort functionality
+// TODO: [RD] Tune Sort functionality for each column and say on correct page after deletion.
 
 
 router
@@ -52,8 +53,9 @@ router
   .get('/day', redirectToLogin, (req, res) => {
     db.any(`SELECT * FROM schedules WHERE schedules.user_id = $1;`, [req.session.userID])
       .then((schedule) => {
-        let sortedSched = schedule.sort((a, b) => Number(a.day) - Number(b.day));
-        res.render('schedules', { schedule: sortedSched });
+        let daysortedSched = schedule.slice().sort((a, b) => a.day - b.day);
+        let timesortedSched = daysortedSched.slice().sort((a, b) => parseInt(a.start_time) - parseInt(b.start_time));
+        res.render('schedules', { schedule: timesortedSched });
       })
       .catch((e) => {
         console.log(e);
@@ -63,7 +65,7 @@ router
 // Delete Specific Schedule Route
 router
   .route('/:id/delete')
-    .get(async (req, res) => {
+  .delete(async (req, res) => {
         const {id} = req.params
         try {
             const deletedSched = await db.any("SELECT * FROM schedules WHERE schedule_id = $1", [id])

@@ -9,7 +9,7 @@ router
   .get(redirectToHome, (req, res) => {
     res.render('login')
   })
-  .post(redirectToHome, (req, res) => {
+  .post((req, res) => {
     db.oneOrNone('SELECT * FROM users WHERE email = $1', [req.body.email.toLowerCase(),])
       .then(async (user) => {
         if (!user) return console.log("Invalid details")
@@ -25,8 +25,5 @@ router
         console.log(e);
       });
   });
-
-
-
 
 module.exports = router;
