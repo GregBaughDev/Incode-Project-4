@@ -1,4 +1,4 @@
-const pgp = require('pg-promise')
+const pgp = require('pg-promise')()
 
 const cn = {
     host: process.env.DB_HOST,
