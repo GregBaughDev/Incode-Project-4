@@ -4,6 +4,7 @@ const db = require('../conn/conn')
 const bcrypt = require('bcrypt')
 const {v4: uuidv4} = require('uuid')
 const Valid = require('../class/validator')
+const nodemailer = require('nodemailer')
 
 router
     .route('/')
@@ -52,9 +53,30 @@ router
             const salt = bcrypt.genSaltSync(saltRounds)
             const hash = bcrypt.hashSync(pword, salt)
             db.none("INSERT INTO users (user_id, first_name, last_name, email, password) VALUES ($1, $2, $3, $4, $5)", [uuidv4(), first, last, email.toLowerCase(), hash])
-                .then(() => {
+                .then(async () => {
+                    // TODO[GB]: Look into retrieving last entered info from pg-promise for activation link
+                    let testAccount = await nodemailer.createTestAccount();
+                    let transporter = nodemailer.createTransport({
+                        host: "smtp.ethereal.email",
+                        port: 587,
+                        secure: false,
+                        auth: {
+                            user: 'giuseppe.hickle@ethereal.email',
+                            pass: '45vKFHFPatDx567R9R'
+                        },
+                    })
+                    let info = await transporter.sendMail({
+                        from: "Mr Coffee <MrCoffee@coffee.com>",
+                        to: "Test User <employee@coffee.com>",
+                        subject: "Please confirm your account",
+                        text: "Hi there! To start using your account, please click the activation link",
+                        // Dynamically create the link for the user to activate their account
+                        html: "<h2>Hi there!</h2><p>To start using your account, please click the activation link</p><a>Link!</a>",
+                    })
+                    console.log("Message sent: %s", info.messageId);
+                    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
                     // TODO[GB] Spruce up redirection action, i.e. add registration confirmation
-                    res.render('login')
+                    res.render('newuser')
                 })
                 .catch((e) => {
                     console.log(e)
@@ -63,4 +85,3 @@ router
     })
 
 module.exports = router
-

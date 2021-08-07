@@ -2,7 +2,7 @@
     <div class="container border p-5">
         <h2 class="text-center my-2">Home</h2>
         <h3 class="text-center my-4">All Schedules</h3>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th class="text-center">Name</th>
@@ -14,10 +14,10 @@
             <tbody>
                 {{#each allScheds}}
                     <tr>
-                        <td><a href="/users/{{this.user_id}}">{{this.first_name}}</td></a>
-                        <td>{{this.day}}</td>
-                        <td>{{this.start_time}}</td>
-                        <td>{{this.end_time}}</td>
+                        <td class="text-center"><a href="/users/{{this.user_id}}">{{this.first_name}}</td></a>
+                        <td class="text-center">{{this.day}}</td>
+                        <td class="text-center">{{this.start_time}}</td>
+                        <td class="text-center">{{this.end_time}}</td>
                     </tr>
                 {{/each}}
             </tbody>

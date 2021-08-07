@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const{ redirectToLogin } = require('../middleware');
+const{ redirectToLogin } = require('../helpers/middleware');
 
 router.route('/')
       .get(redirectToLogin, (req, res) => {
