@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(200) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
+    is_confirmed BIT NOT NULL DEFAULT B'0',
     CONSTRAINT users_pkey PRIMARY KEY (user_id)
 );
 

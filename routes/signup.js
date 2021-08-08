@@ -52,10 +52,9 @@ router
             const saltRounds = 10
             const salt = bcrypt.genSaltSync(saltRounds)
             const hash = bcrypt.hashSync(pword, salt)
-            db.none("INSERT INTO users (user_id, first_name, last_name, email, password) VALUES ($1, $2, $3, $4, $5)", [uuidv4(), first, last, email.toLowerCase(), hash])
-                .then(async () => {
-                    // TODO[GB]: Look into retrieving last entered info from pg-promise for activation link
-                    let testAccount = await nodemailer.createTestAccount();
+            db.one("INSERT INTO users (user_id, first_name, last_name, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING user_id", [uuidv4(), first, last, email.toLowerCase(), hash])
+                .then(async (data) => {
+                    const { user_id } = data
                     let transporter = nodemailer.createTransport({
                         host: "smtp.ethereal.email",
                         port: 587,
@@ -70,12 +69,10 @@ router
                         to: "Test User <employee@coffee.com>",
                         subject: "Please confirm your account",
                         text: "Hi there! To start using your account, please click the activation link",
-                        // Dynamically create the link for the user to activate their account
-                        html: "<h2>Hi there!</h2><p>To start using your account, please click the activation link</p><a>Link!</a>",
+                        html: `<h2>Hi there!</h2><p>To start using your account, please click the activation link</p><a href='localhost:3000/email/${user_id}'>Link!</a>`,
                     })
                     console.log("Message sent: %s", info.messageId);
                     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-                    // TODO[GB] Spruce up redirection action, i.e. add registration confirmation
                     res.render('newuser')
                 })
                 .catch((e) => {

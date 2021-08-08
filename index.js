@@ -14,7 +14,6 @@ const login = require('./routes/login')
 const logout = require('./routes/logout')
 const signup = require('./routes/signup')
 const reset = require('./routes/reset')
-// May remove this
 const email = require('./routes/mailer')
 
 const port = process.env.PORT || 3000
@@ -47,7 +46,6 @@ app.use("/login", login)
 app.use("/logout", logout)
 app.use("/signup", signup)
 app.use("/reset", reset)
-// May remove this
 app.use("/email", email)
 
 
