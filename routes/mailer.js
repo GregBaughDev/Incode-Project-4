@@ -63,7 +63,6 @@ router
     .route('/update/:id')
     .get((req, res) => {
         const {id} = req.params
-        console.log(id)
         res.render('update', {id})
     })
 
