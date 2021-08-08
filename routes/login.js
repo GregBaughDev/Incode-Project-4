@@ -12,6 +12,7 @@ router
   .post((req, res) => {
     db.oneOrNone('SELECT * FROM users WHERE email = $1', [req.body.email.toLowerCase(),])
       .then(async (user) => {
+        // TODO: Check that is_confirmed = 1. If not, the user has to register before they can login
         // TODO: Redirect to login page with error details
         if (!user) return console.log("Invalid details")
         const validPassword = await bcrypt.compare(req.body.password, user.password);
