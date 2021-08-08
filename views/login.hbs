@@ -1,27 +1,35 @@
 <div class='container w-75 center-div'>
   <div class='container w-20 border p-5'>
+    {{#if error}}
+      <div class="alert alert-danger" role="alert">
+        {{error}}
+      </div>
+    {{/if}}
     <h2 class='text-center'>Please Log In</h2>
     <form action="/login" method="POST">
       <div class="form-group my-2">
         <label for="email">E-Mail:</label>
-        <input type="email" name="email" id="email" required class='form-control' placeholder="Enter E-mail" value="dkb1@gmail.com">
-        <small id='emailHelp' class='form-text text-muted'>We'll never share your email with anyone else.</small>
+        <input type="email" name="email" id="email" required class='form-control' placeholder=" " value='dkb1@gmail.com'>
       </div>
+
       <div class="form-group my-2">
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required class='form-control' placeholder="Password" value="testpass1">
+        <input type="password" name="password" id="password" required class='form-control' placeholder=" " autocomplete="username"  value='testpass1'>
+        <small id='passwordHelp' class='form-text text-muted'>Forgot password? <a href="/email/forgot">Reset</a></small>
       </div>
+
       <div class="form-check my-2">
         <input type='checkbox' name="remember" id="remember" class='form-check-input' />
         <label class='form-check-label' for='remember'>Stay Logged in</label>
       </div>
+
+
       <div class="form-group my-3 d-flex justify-content-center">
-        <input type="submit" value="Submit" class="btn btn-style">
+        <button class="btn btn-style" id="signin">Sign in</button>
       </div>
     </form>
     <div>
-      <p class="my-2 text-center">Not a user yet? Sign up <a href="/signup">here</a></p>
-      <p class="my-2 text-center">Forgot your password? Click <a href="/email/forgot">here</a></p>
+      <p class="my-2 text-center">Not yet a user?  <a href="/signup">Sign up</a></p>
     </div>
   </div>
 </div>

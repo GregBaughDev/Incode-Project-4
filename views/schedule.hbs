@@ -1,0 +1,36 @@
+<div class="container w-75 center-div">
+    <div class="container w-20 border p-5">
+    <h2 class="text-center my-2">Current Schedules</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">
+                        Day
+                    <a href="/schedules/day">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                        </svg>
+                    </a>
+                    </th>
+                    <th scope="col" class="text-center">Start Time</th>
+                    <th scope="col" class="text-center">End Time</th>
+                    <th scope="col" class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td scope="col" class="text-center align-middle">{{schedule.day}}</td>
+                        <td scope="col" class="text-center align-middle">{{schedule.start_time}}</td>
+                        <td scope="col" class="text-center align-middle">{{schedule.end_time}}</td>
+                        <td scope="col" class="text-center align-middle">
+                            <form method="POST" action="/schedules/{{schedule.schedule_id}}?_method=DELETE">
+                                <button type="submit" name="_method" class="btn btn-style" >
+                                CONFIRM   
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

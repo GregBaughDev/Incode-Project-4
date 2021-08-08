@@ -6,10 +6,7 @@ const { redirectToLogin } = require('../helpers/middleware');
 
 
 
-// TODO: [RD] Add schedule validation to avoid time clashes
 // TODO: [RD] Add user confirmation before deletion
-// TODO: [RD] Tune Sort functionality for each column and say on correct page after deletion.
-
 
 router
   .route('/')
@@ -40,7 +37,10 @@ router
         });
       }
       else{
-        console.log("Invalid new shift")
+        db.any(`SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id WHERE schedules.user_id = $1;`, [req.session.userID])
+        .then((schedule) => {
+          res.render('schedules', { schedule, error: "The schedule you entered overlaps an already existing schedule. Please adjust the timeframe." });
+        })
       }
     })
     .catch((e) => {
@@ -64,7 +64,16 @@ router
 
 // Delete Specific Schedule Route
 router
-  .route('/:id/delete')
+  .route('/:id')
+  .get(async (req, res) => {
+    const {id} = req.params
+    try {
+        const schedule = await db.one("SELECT * FROM schedules WHERE schedule_id = $1", [id])
+        res.render('schedule', {schedule})
+    } catch (e) {
+        console.log(e)
+    }
+})
   .delete(async (req, res) => {
         const {id} = req.params
         try {
@@ -82,3 +91,5 @@ router
     })
 
 module.exports = router;
+
+

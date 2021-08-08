@@ -5,6 +5,7 @@
     --secondary-bg-color: #6A7B8B;
     --secondary-bg-2-color: #5C5B5B; 
     --secondary-text-color: #F1F3F5;
+    --highlight-color: #d2cccc;
 }
 
 *, *:after, *:before {
@@ -48,4 +49,27 @@ td img {
 /* Schedule page */
 svg {
   height: 2vh;
+}
+
+#newSched, #confirm {
+    visibility: hidden;
+}
+
+
+tr:hover {
+    background-color: var(--highlight-color);
+  }
+
+.noHover{
+    pointer-events: none;
+}
+
+/* banner styles */
+.banner{
+    padding: 0 2%;
+    background-color: var(--highlight-color);
+}
+
+.banner a, .banner-link{
+    color: invert(var(--primary-bg-color));
 }
