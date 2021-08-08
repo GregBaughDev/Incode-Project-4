@@ -44,3 +44,8 @@ nav a, .nav-link{
 td img {
     height: 3vh;
 }
+
+/* Schedule page */
+svg {
+  height: 2vh;
+}

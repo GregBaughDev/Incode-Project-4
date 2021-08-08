@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const db = require('./conn/conn')
+const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
@@ -12,6 +13,7 @@ const schedules = require('./routes/schedules')
 const login = require('./routes/login')
 const logout = require('./routes/logout')
 const signup = require('./routes/signup')
+const reset = require('./routes/reset')
 // May remove this
 const email = require('./routes/mailer')
 
@@ -21,6 +23,8 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(express.static('public'))
 app.set('public', path.join(__dirname, 'public'))
+
+app.use(methodOverride('_method'))
 
 app.set('view engine', 'hbs')
 app.engine('hbs', exphbs({
@@ -42,8 +46,10 @@ app.use("/schedules", schedules)
 app.use("/login", login)
 app.use("/logout", logout)
 app.use("/signup", signup)
+app.use("/reset", reset)
 // May remove this
 app.use("/email", email)
+
 
 // Home route
 app.get('/', redirectToLogin , async  (req, res) => {
