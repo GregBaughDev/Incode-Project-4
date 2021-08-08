@@ -5,15 +5,14 @@ const { v4: uuidv4 } = require('uuid');
 const { redirectToLogin } = require('../helpers/middleware');
 
 
-
-// TODO: [RD] Add user confirmation before deletion
-
 router
   .route('/')
   .get(redirectToLogin, (req, res) => {
     db.any(`SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id WHERE schedules.user_id = $1;`, [req.session.userID])
       .then((schedule) => {
-        res.render('schedules', { schedule });
+        let empty = null
+        !schedule[0] ? empty = true : empty = false
+        res.render('schedules', { schedule, empty });
       })
       .catch((e) => {
         console.log(e);

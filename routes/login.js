@@ -13,11 +13,11 @@ router
   .post((req, res) => {
     db.oneOrNone('SELECT * FROM users WHERE email = $1', [req.body.email.toLowerCase(),])
       .then(async (user) => {
- // TODO: Check that is_confirmed = 1. If not, the user has to register before they can login
+
         let loginError = "The username and password you entered did not match our records. Please double-check and try again."
-        // let confirmationError = "Please confirm your email address at Sign Up page"
-        // if (user.is_confirmed != 1) return res.render('login', {error: confirmationError})
-        if (!user) return res.render('login', {error: loginError})
+        let confirmationError = "Please confirm your email address in your inbox"
+        if (user.is_confirmed != 1) return res.render('login', {error: confirmationError})
+        if (!user) return res.render('login', {error: loginError})   
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         const oneWeek = 7 * 24 * 3600 * 1000
         if (!validPassword) return res.render('login', {error: loginError})

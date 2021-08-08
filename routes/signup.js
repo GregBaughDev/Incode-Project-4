@@ -66,14 +66,15 @@ router
                     })
                     let info = await transporter.sendMail({
                         from: "Mr Coffee <MrCoffee@coffee.com>",
-                        to: "Test User <employee@coffee.com>",
+                        to: `${first} ${last} <${email}`,
                         subject: "Please confirm your account",
                         text: "Hi there! To start using your account, please click the activation link",
-                        html: `<h2>Hi there!</h2><p>To start using your account, please click the activation link</p><a href='localhost:3000/email/${user_id}'>Link!</a>`,
+                        html: `<h2>Hi there!</h2><p>To start using your account, please click the activation link</p><a href='http://localhost:3000/email/${user_id}'>Link!</a>`,
                     })
                     console.log("Message sent: %s", info.messageId);
                     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-                    res.render('newuser')
+                    let signup = true
+                    res.render('login', {signup})
                 })
                 .catch((e) => {
                     console.log(e)
