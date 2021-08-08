@@ -53,6 +53,11 @@ app.get('/', redirectToLogin , async  (req, res) => {
     res.render('index', {allScheds})
 })
 
+// 404
+app.get("*", redirectToLogin, (req, res) => {
+    res.render("error", { error: "404"});
+  });
+
 app.listen(port, () => {
     console.log(`Listening on port http://localhost:${port}`)
 })
