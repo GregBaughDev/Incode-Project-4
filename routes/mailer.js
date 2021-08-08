@@ -40,10 +40,10 @@ router
                     })
                         let info = await transporter.sendMail({
                             from: "Mr Coffee <MrCoffee@coffee.com>",
-                            to: "Test User <employee@coffee.com>",
+                            to: `${user.first_name} ${user.first_name} <${user.email}>'`,
                             subject: "Reset your password",
                             text: "Hi there! You requested a password reset. Please click here to reset your password",
-                            html: `<h2>Hi there!</h2><p>You requested a password reset, please click <a href="localhost:3000/email/update/${user.user_id}">here</a> to reset your password</p>`,
+                            html: `<h2>Hi there!</h2><p>You requested a password reset, please click <a href="http://localhost:3000/email/update/${user.user_id}">here</a> to reset your password</p>`,
                         })
                         console.log("Message sent: %s", info.messageId);
                         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
@@ -93,7 +93,8 @@ router
             const saltRounds = 10
             const salt = bcrypt.genSaltSync(saltRounds)
             const hash = bcrypt.hashSync(newpassword, salt)
-            db.none("UPDATE users SET password = $1 WHERE user_id = $2", [hash, id])
+            // Added update is_confirmed to 1
+            db.none("UPDATE users SET password = $1, is_confirmed = B'1' WHERE user_id = $2 ", [hash, id])
                 .then(() => {
                     res.render('login')
                 })
@@ -105,14 +106,18 @@ router
 
 router
     .route('/:id')
-    // Test Route - TO UPDATE
     .get((req, res) => {
-        // Retrieve user id from URL - See below
         const {id} = req.params
-        // SQL here
+        db.none("UPDATE users SET is_confirmed = B'1' WHERE user_id = $1 ", [id])
+                .then(() => {
+                    let confirmed = true
+                    res.render('login', {confirmed})
+                })
+                .catch(e => {
+                    console.log(e)
+                })
+        })
 
-        // Redirect to login page once email address is updated
-        res.send("USER CONFIRMED!")
-    })
 
 module.exports = router
+

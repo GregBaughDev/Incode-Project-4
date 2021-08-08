@@ -13,7 +13,6 @@ const schedules = require('./routes/schedules')
 const login = require('./routes/login')
 const logout = require('./routes/logout')
 const signup = require('./routes/signup')
-const reset = require('./routes/reset')
 const email = require('./routes/mailer')
 
 const port = process.env.PORT || 3000
@@ -45,7 +44,6 @@ app.use("/schedules", schedules)
 app.use("/login", login)
 app.use("/logout", logout)
 app.use("/signup", signup)
-app.use("/reset", reset)
 app.use("/email", email)
 
 
@@ -54,6 +52,11 @@ app.get('/', redirectToLogin , async  (req, res) => {
     const allScheds = await db.any("SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id")
     res.render('index', {allScheds})
 })
+
+// 404
+app.get("*", redirectToLogin, (req, res) => {
+    res.render("error", { error: "404"});
+  });
 
 app.listen(port, () => {
     console.log(`Listening on port http://localhost:${port}`)
