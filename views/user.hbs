@@ -1,29 +1,30 @@
-<div>
-    <section>
-        <h2>Information for {{userSearch.first_name}} {{userSearch.last_name}}</h2>
-        <h3>User: {{userSearch.first_name}} {{userSearch.last_name}}</h3>
-        <h4>Email: {{userSearch.email}}</h4>
-    </section>
-    <section>
-        <h2>Schedules:</h2>
-        {{!-- // TODO[GB]: Update way day and time are displayed --}}
-        <table>
-            <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each schedSearch}}
+<div class="card mx-5">
+    <div class="card-body">
+        <section>
+            <h2 class="card-title">Employee: {{userSearch.first_name}} {{userSearch.last_name}}</h2>
+            <h3 class="card-subtitle mb-2 text-muted">User: {{userSearch.first_name}} {{userSearch.last_name}}</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Email: {{userSearch.email}}</h4>
+        </section>
+        <section class="my-3">
+            <h2>Schedules:</h2>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{this.day}}</td>
-                        <td>{{this.start_time}}</td>
-                        <td>{{this.end_time}}</td>
+                        <th class="text-center table-dark">Day</th>
+                        <th class="text-center table-dark">Start Time</th>
+                        <th class="text-center table-dark">End Time</th>
                     </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </section>
+                </thead>
+                <tbody>
+                    {{#each schedSearch}}
+                        <tr>
+                            <td class="text-center table-light">{{this.day}}</td>
+                            <td class="text-center table-light">{{this.start_time}}</td>
+                            <td class="text-center table-light">{{this.end_time}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+    </div>
 </div>

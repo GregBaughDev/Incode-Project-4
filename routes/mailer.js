@@ -12,6 +12,7 @@ router
     })
 
 router
+    // Route to handle password reset
     .route('/reset')
     .post((req, res) => {
         let errors = {email: ''}
@@ -21,11 +22,14 @@ router
             res.render('forgot', {errors})
         }
         db.oneOrNone('SELECT * FROM users WHERE email = $1', [email.toLowerCase()])
+            // If no user is associated with the email address, user is informed
             .then(async (user) => {
                 if(!user){
                     errors.email = "No user with this email exists"
                     res.render('forgot', {errors})
                 } else {
+                    /* If user does exist, is_confirmed to false so they are unable to login while
+                    they are updating their password */
                     db.none('UPDATE users SET is_confirmed = B\'0\' WHERE user_id = $1', [user.user_id])
                     .then(async () => {
                         let reset = {success: "Password reset sent - Please check your email"}
@@ -40,7 +44,7 @@ router
                     })
                         let info = await transporter.sendMail({
                             from: "Mr Coffee <MrCoffee@coffee.com>",
-                            to: `${user.first_name} ${user.first_name} <${user.email}>'`,
+                            to: `${user.first_name} ${user.last_name} <${user.email}>'`,
                             subject: "Reset your password",
                             text: "Hi there! You requested a password reset. Please click here to reset your password",
                             html: `<h2>Hi there!</h2><p>You requested a password reset, please click <a href="http://localhost:3000/email/update/${user.user_id}">here</a> to reset your password</p>`,
@@ -60,6 +64,7 @@ router
     })
 
 router
+    // This route handles the link from the reset email. User is redirected to form to enter new password
     .route('/update/:id')
     .get((req, res) => {
         const {id} = req.params
@@ -67,6 +72,7 @@ router
     })
 
 router
+    // This route handles the password change and validations. If all validations are passed, new email is input to database
     .route('/update/:id/passwordchange')
     .post((req, res) => {
         const {id} = req.params
@@ -89,11 +95,11 @@ router
                 return res.render('update', {errors, id})
             } 
         }
+
         if(allTests){
             const saltRounds = 10
             const salt = bcrypt.genSaltSync(saltRounds)
             const hash = bcrypt.hashSync(newpassword, salt)
-            // Added update is_confirmed to 1
             db.none("UPDATE users SET password = $1, is_confirmed = B'1' WHERE user_id = $2 ", [hash, id])
                 .then(() => {
                     res.render('login')
@@ -105,6 +111,7 @@ router
     })
 
 router
+    // This route handles new user confirmation link from email
     .route('/:id')
     .get((req, res) => {
         const {id} = req.params
@@ -117,7 +124,6 @@ router
                     console.log(e)
                 })
         })
-
 
 module.exports = router
 
