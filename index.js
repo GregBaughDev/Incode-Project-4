@@ -52,6 +52,17 @@ app.get('/', redirectToLogin , async  (req, res) => {
     const allScheds = await db.any("SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id")
     res.render('index', {allScheds})
 })
+// home sort
+app.get('/sort/day', redirectToLogin , async  (req, res) => {
+    let allScheds = await db.any("SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id")
+    allScheds = allScheds.slice().sort((a, b) => a.day - b.day)
+    res.render('index', {allScheds})
+})
+app.get('/sort/name', redirectToLogin , async  (req, res) => {
+    let allScheds = await db.any("SELECT * FROM schedules LEFT JOIN users ON schedules.user_id = users.user_id")
+    allScheds = allScheds.slice().sort((a, b) => a.first_name.localeCompare(b.first_name))
+    res.render('index', {allScheds})
+})
 
 // 404
 app.get("*", redirectToLogin, (req, res) => {

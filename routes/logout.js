@@ -7,7 +7,7 @@ router.route('/')
         req.session.userID = false;
         res.clearCookie('mrCoffeeEmployees')
         req.session.destroy((err) => {
-          !err ? res.redirect('/login') : res.send(err.message)
+          !err ? res.redirect('/login') : res.render('login', {error: loginError})
         });
       });
 

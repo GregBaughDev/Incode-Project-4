@@ -102,7 +102,8 @@ router
             const hash = bcrypt.hashSync(newpassword, salt)
             db.none("UPDATE users SET password = $1, is_confirmed = B'1' WHERE user_id = $2 ", [hash, id])
                 .then(() => {
-                    res.render('login')
+                    let update = true
+                    res.render('login', {update})
                 })
                 .catch(e => {
                     console.log(e)
