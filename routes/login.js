@@ -16,8 +16,8 @@ router
         let loginError = "The username and password you entered did not match our records. Please double-check and try again."
         let confirmationError = "Please confirm your email address in your inbox"
         
-        if (user.is_confirmed != 1) return res.render('login', {error: confirmationError})
-        if (!user) return res.render('login', {error: loginError})   
+        if (!user) return res.render('login', {error: loginError})
+        if (user.is_confirmed != 1) return res.render('login', {error: confirmationError})   
         
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         const oneWeek = 7 * 24 * 3600 * 1000

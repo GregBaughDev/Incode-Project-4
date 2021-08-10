@@ -1,9 +1,11 @@
 <div class="container w-75 center-div">
     <div class="container w-20 border p-5">
-        <h2 class="text-center">Sign Up</h2>
         {{#if errors}}
-            <h3>{{errors.userExists}}</h3>
+        <div class="alert alert-danger" role="alert">
+            {{errors.userExists}}
+        </div>
         {{/if}}
+        <h2 class="text-center">Sign Up</h2>
         <form action="/signup" method="POST">
             <div class="form-group my-3">
                 <label for="first">First Name</label>

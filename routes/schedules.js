@@ -12,7 +12,8 @@ router
       .then((schedule) => {
         let empty = null
         !schedule[0] ? empty = true : empty = false
-        res.render('schedules', { schedule, empty });
+        let days = [0, "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        res.render('schedules', { schedule, empty, days});
       })
       .catch((e) => {
         console.log(e);
@@ -49,7 +50,7 @@ router
 
 // Sort Schedule  
 router
-  .get('/day', redirectToLogin, (req, res) => {
+  .get('/sort/day', redirectToLogin, (req, res) => {
     db.any(`SELECT * FROM schedules WHERE schedules.user_id = $1;`, [req.session.userID])
       .then((schedule) => {
         let daysortedSched = schedule.slice().sort((a, b) => a.day - b.day);

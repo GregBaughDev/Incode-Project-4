@@ -25,12 +25,15 @@
             <a class="nav-link text-center" href="/signup">New User? Register Here!</a>
         {{/if}}
         {{#if signup}}
-            <h2 class="text-center">Thanks for signing up!</h2>
-            <h3 class="text-center">Please check your email to complete your account activation!</h3>
+            <h3 class="text-center">Thanks for signing up!</h3>
+            <h4 class="text-center">Please check your email to complete your account activation</h4>
         {{/if}}
         {{#if confirmed}}
             <h3 class="text-center">Account activated</h3>
             <h4 class="text-center">Please log in below</h4>
+        {{/if}}
+        {{#if update}}
+            <h3 class="text-center">Password Updated</h3>
         {{/if}}       
     </aside>
     <h1 class="container my-5 text-center">Mr Coffee Employee Portal</h1>
