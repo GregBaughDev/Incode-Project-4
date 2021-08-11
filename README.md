@@ -12,7 +12,7 @@ Use the package manager [npm](https://www.npmjs.com/) to install following depen
 
 
 ```bash
-npm install dotenv express express-handlebars express-session method-override nodemailer nodemon pg-promise uuid
+npm install 
 ```
 
 
@@ -37,7 +37,7 @@ Create .env file and fill with your values based on the .env.sample
 Run:
 
 ```bash
-npm start dev
+npm run dev
 ```
 
 
@@ -50,6 +50,10 @@ npm start dev
 - Bootstrap
 - Pg-promise
 - [Ethereal Email](https://ethereal.email/) 
+
+## Full Package list
+
+dotenv express express-handlebars express-session method-override nodemailer nodemon pg-promise uuid
 
 ## TODO
 - [x] Express Skeleton and Home page
